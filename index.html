@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My First Webpage</title>
+        <link rel="stylesheet" href="fancy.css">
+    <body>
+        <h1>Welcome To My First Webpage</h1>
+        <p>Hello, this is my first webpage for the computer science course at <i>Kansas State University</i>. 
+            I am a computer science major wanting to go into <b>artificial intelligence</b> thats will help the world and not use water like ai generative art does. 
+            I think AI can help fix the planet instead of how AI is hurting it right now. 
+            This web assignment is to show how we can learn web design for an future jobs anyone could get and is a good tool to have.
+            If not going into AI I would like to go into cyber security to help people be safe in their homes, at work, out of state/country, etc. 
+            I think both AI and Cyber Security are very important to society as a whole creating new jobs and new ideas.</p>
+        <p></p>
+        <p> Since I have to have 3 more paragraphs I will be talking about 3 <b>video games</b>.
+            The first video game I will be talking about is <i>Valorant</i>.
+            Valorant is a game that has many game modes, but the main one is unrated/competative.
+            Those gamemodes are a 5v5 where the point is to plant the spike(which is a bomb) if attacking or defuse or stop the enemy team from planting the spike if defending.
+            To add more to the game each character, which are called agents, how different abilities, different utility.
+            There are duelists, controllers, sentinals, and initiators.
+            The duelists role is to enter onto the sites and create space, their abilities help them get kills to help push onto a site and plant the spike.
+            The controllers role is to basically control a site. All those agents have a smoke which is able to cover spots the enemy team can peek and help hold sites, making the enemy team unable to see you.
+            The sentinals role is to slow down the enemy team any way possible, for example: walls, slow orbs, molly's, etc to keep the other team off the site.
+            Last but not least, the initiators help get onto site by being able to locate the enemy's and ping their location so then your team can get onto site easier knowing how many enemies are there.
+        </p>
+        <p></p>
+        <p> The next game I will be talking about is <i>Leathal Company</i>.
+            Lethal Company is a multiplayer game where you have to find items of a good price, bring them back to your ship then go to the next plant, you have 4 days to do so.
+            Every day you will go to a new planet to find new loot and every round(every 4 days) you will get a new quota starting at around $120 going up infinatly.
+            But, it is not that simple, there are monsters that will attack you to stop you and your friends from grabbing the loot.
+            There are big cockroaches, slime, a nutcracker, and more. When your teammates dies they will respawn next round after the loot has been aquiured.
+            If everyone <b>dies</b> then your ship will leave and all your findings will be lost and you will have to start again and if you don't reach quota your whole team will have to restart from the beginning.
+        </p>
+        <p></p>
+        <p> The last game I will talk about is <i>tic tac toe</i>.
+            Tic Tac Toe is a two player one versus one game where you place X's and O's on a three by three grid till someone gets three of there symbol in a row either diagonal or top to bottom or left to right.
+            Now, I could finish here but I will also talk about <b>Ultimate Tic Tac Toe</b>.
+            Ultimate Tic Tac Toe is simalar, but there is a big three by three grid and in each of the nine boxes there are nine different and smaller three by three grids.
+            So X's will start and you have to start in the center block and can go in any space in that blocks smaller grid. 
+            Now, when you place your symbol the person who goes next will place their X or O in the block where the other person placed their symbol in the smaller grid.
+            So if the first player places the X in the top middle spot in the smaller three by three grid in the middle block, the second player must place their O in the top middle grid so on so forth.
+        </p>
+        <head>
+            <style>
+                td{
+                    border: 5px solid black;
+                    width: 100px;
+                    height: 100px;
+                    font-size: 3em;
+                    text-align: center;
+                    font-family: sans-serif;
+                    cursor: pointer;
+                }
+                td:nth-child(1) { border-left: none; }
+                td:nth-child(3) { border-right: none; }
+                tr:nth-child(1) > td { border-top: none; }
+                tr:nth-child(3) > td { border-bottom: none; }
+
+                table {
+                    border-collapse: collapse;
+                    margin-bottom: 10px;
+                }
+                #turn {
+                    font-weight: bold;
+                    text-align: center;
+                    font-size: 16pt;
+                    color: white;
+                    background-color: #7703c5;
+                    width: 300px;
+                    padding: 5px;
+                    margin-bottom: 10px;
+                }
+
+                button {
+                    font-size: 14pt;
+                    padding: 5px 10px;
+                    cursor: pointer;
+                }
+            </style>
+
+
+        <h2 id="turn">Player X's turn</h2>
+
+        <table>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <button onclick="restartGame()">Restart</button>
+
+        <script>
+            let currentPlayer = "X"
+            let gameActive = true;
+
+            const turnText= document.getElementById("turn");
+            const cells = document.querySelectorAll("td");
+
+            const winPatterns = [
+            [0,1,2],
+            [3,4,5],
+            [6,7,8],
+            [0,3,6],
+            [1,4,7],
+            [2,5,8],
+            [0,4,8],
+            [2,4,6],
+            ];
+
+            cells.forEach((cell, index) => {
+                cell.addEventListener("click", () => {
+                    if (!gameActive || cell.textContent !== "") return;
+
+                    cell.textContent = currentPlayer;
+
+                    if (checkWin()) {
+                        turnText.textContent = "Player " + currentPlayer + " wins";
+                        gameActive = false;
+                        return;
+                    }
+
+                    if (checkDraw()) {
+                        turnText.textContent = "It's a draw";
+                        gameActive = false;
+                        return;
+                    }
+
+                    currentPlayer = currentPlayer === "X" ? "O" : "X";
+                    turnText.textContent = "Player " + currentPlayer + "'s turn";
+                });
+            });
+            function checkWin() {
+                return winPatterns.some(pattern => {
+                    return pattern.every(index => {
+                        return cells[index].textContent === currentPlayer;
+                    });
+                });
+            }
+
+            function checkDraw() {
+                return [...cells].every(cell => cell.textContent !== "");
+            }
+            function restartGame() {
+                cells.forEach(cell => cell.textContent = "");
+                currentPlayer = "X";
+                gameActive = true;
+                turnText.textContent = "Player X's turn"
+            }
+        </script>
+        <p></p>
+        <a href="resume.html">Go to Resume</a>
+        <p></p>
+        <a href="about.html">Go to About</a>
+    </body>
+</html>
