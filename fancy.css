@@ -44,3 +44,7 @@ img {
     padding-left: 80px;
     padding-right: 80px;
 }
+body {
+    background-image: url(background.jpg);
+    color: black;
+}
